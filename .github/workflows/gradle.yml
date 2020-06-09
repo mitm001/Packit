@@ -27,6 +27,9 @@ jobs:
         java-version: ${{ matrix.java }}
         architecture: x64
 
+    - name: Linux commands
+      run: java -version
+      
     - name: Grant execute permissions
       run: |
         chmod +x gradlew
