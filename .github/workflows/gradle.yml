@@ -20,16 +20,20 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up OpenJDK 
       uses: joschi/setup-jdk@v2
       with:
         java-version: ${{ matrix.java }}
         architecture: x64
-    - name: java -jar JPackage.jar 
-      run: |
-           chmod +x ./src/main/java/JPackage.jar
-           java -jar ./src/main/java/JPackage.jar 
+
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: |
+        chmod +x gradlew
+        chmod +x ./src/main/java/JPackage.jar
+
+    - name: Run with Java 
+      run: java -jar ./src/main/java/JPackage.jar 
+
     - name: Run with Gradle
       run: ./gradlew run 
