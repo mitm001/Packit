@@ -1,6 +1,6 @@
 package packit;
 
-public class HellowWorld {
+public class HelloWorld {
     /**
      * @param args the command line arguments
      */
