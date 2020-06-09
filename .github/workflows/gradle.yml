@@ -20,7 +20,7 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
-    - name: Set up OpenJDK 1.8
+    - name: Set up OpenJDK 
       uses: joschi/setup-jdk@v2
       with:
         java-version: ${{ matrix.java }}
