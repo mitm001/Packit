@@ -25,10 +25,10 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         architecture: x64
-    - name: java -cp JPackage.jar 
+    - name: java -jar JPackage.jar 
       run: |
            chmod +x ./src/main/java/JPackage.jar
-           java -cp JPackage.jar 
+           java -jar ./src/main/java/JPackage.jar 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
