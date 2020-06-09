@@ -27,7 +27,7 @@ jobs:
         architecture: x64
     - name: java -cp JPackage.jar 
       run: |
-           chmod +x JPackage.jar
+           chmod +x ./src/main/java/JPackage.jar
            java -cp JPackage.jar 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
