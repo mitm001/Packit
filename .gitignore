@@ -1,7 +1,6 @@
 .idea/
 /.gradle/
 /.nb-gradle/
-/build/
 *.so
 *.dll
 *.dylib

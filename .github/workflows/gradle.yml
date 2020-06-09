@@ -25,8 +25,8 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         architecture: x64
-    - run: java -cp java/packit HelloWorld
+    - run: java -cp java JPackage.jar
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew run ./src/main/java/packit/HelloWorld
