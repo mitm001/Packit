@@ -29,7 +29,7 @@ jobs:
 
     - name: Linux commands
       run: | 
-        ls -al ./
+        jpackage --help
       
     - name: Grant execute permissions
       run: |
