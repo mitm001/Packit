@@ -29,7 +29,7 @@ jobs:
 
     - name: Linux commands
       run: | 
-        ls -al ~./
+        ls -al ./
       
     - name: Grant execute permissions
       run: |
