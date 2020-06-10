@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem
+
 plugins {
     id "application"
 }
@@ -30,5 +32,23 @@ jar {
         attributes(
             "Main-Class": javaMainClass
         )
+    }
+}
+
+String osName = OperatingSystem.current().getName();
+String osVersion = OperatingSystem.current().getVersion();
+println "*** $osName $osVersion was detected."
+
+jpackage {
+    if (OperatingSystem.current().isLinux()) {
+        println "*** Linux ***"
+    } else if (OperatingSystem.current().isUnix()) {
+        println "*** Unix ***"
+    } else if (OperatingSystem.current().isWindows()) {
+        println "*** Windows ***"
+    } else if (OperatingSystem.current().isMacOsX()) {
+        println "*** MacOsX ***"
+    } else {
+        println "*** Unknown ***"
     }
 }
