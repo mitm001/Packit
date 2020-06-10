@@ -20,6 +20,9 @@ jobs:
         
     steps:
     - uses: actions/checkout@v2
+      with:
+        # Number of commits to fetch. 0 indicates all history.  
+        fetch-depth: 1
 
     - name: Set up OpenJDK 
       uses: joschi/setup-jdk@v2
