@@ -41,13 +41,13 @@ String osVersion = OperatingSystem.current().getVersion();
 println "*** $osName $osVersion was detected."
 
 jpackage {
-    if (OperatingSystem.current().isLinux()) {
+    if (it.targetPlatform.operatingSystem.isLinux()) {
         println "*** Linux ***"
-    } else if (OperatingSystem.current().isUnix()) {
+    } else if (it.targetPlatform.operatingSystem.isUnix()) {
         println "*** Unix ***"
-    } else if (OperatingSystem.current().isWindows()) {
+    } else if (it.targetPlatform.operatingSystem.isWindows()) {
         println "*** Windows ***"
-    } else if (OperatingSystem.current().isMacOsX()) {
+    } else if (it.targetPlatform.operatingSystem.isMacOsX()) {
         println "*** MacOsX ***"
     } else {
         println "*** Unknown ***"
