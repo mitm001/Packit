@@ -1,7 +1,8 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    id "application"
+    //Applies application plugin also
+    id 'org.beryx.runtime' version '1.8.5'
 }
 
 apply plugin: 'java'
