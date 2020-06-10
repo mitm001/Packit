@@ -28,7 +28,7 @@ jobs:
         architecture: x64
 
     - name: Linux commands
-      run: jpackage
+      run: ls
       
     - name: Grant execute permissions
       run: |
@@ -39,4 +39,4 @@ jobs:
       run: java -jar ./src/main/java/JPackage.jar 
 
     - name: Run with Gradle
-      run: ./gradlew run 
+      run: ./gradlew jpackage 
