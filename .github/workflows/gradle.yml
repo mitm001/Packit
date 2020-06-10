@@ -28,7 +28,7 @@ jobs:
         architecture: x64
 
     - name: Linux commands
-      run: ls
+      run: java -version
       
     - name: Grant execute permissions
       run: |
