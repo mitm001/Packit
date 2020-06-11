@@ -40,4 +40,4 @@ jobs:
       run: java -jar ./src/main/java/jpackage.jar 
 
     - name: Package
-      run: ./gradlew jpackage 
+      run: ./gradlew suggestModules 
