@@ -1,9 +1,8 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    id "application"
-//    //Applies application plugin also
-//    id 'org.beryx.runtime' version '1.8.5'
+    //Applies application plugin also
+    id 'org.beryx.runtime' version '1.8.5'
 }
 
 apply plugin: 'java'
@@ -37,20 +36,40 @@ jar {
     }
 }
 
-//String osName = OperatingSystem.current().getName();
-//String osVersion = OperatingSystem.current().getVersion();
-//println "*** $osName $osVersion was detected."
-//
-//jpackage {
-//    if (OperatingSystem.current().isLinux()) {
-//        println "*** Linux ***"
-//    } else if (OperatingSystem.current().isMacOsX()) {
-//        println "*** MacOsX ***"
-//    } else if (OperatingSystem.current().isUnix()) {
-//        println "*** Unix ***"
-//    } else if (OperatingSystem.current().isWindows()) {
-//        println "*** Windows ***"
-//    }  else {
-//        println "*** Unknown ***"
-//    }
-//}
+runtime {
+    jpackage {
+        outputDir = "distribution"
+
+        if (OperatingSystem.current().isLinux()) {
+            installerOptions = [ 
+                '--verbose',
+                '--vendor', 'Test Vendor',
+                '--app-version', "${project.version}",
+                '--linux-menu-group', 'Games;',
+                '--description', 'Test Description',
+                '--linux-shortcut'
+            ]
+        } else if (OperatingSystem.current().isMacOsX()) {
+            installerOptions = [
+                '--verbose',
+                '--vendor', 'Test Vendor',
+                '--app-version', "${project.version}"
+            ]
+        } else if (OperatingSystem.current().isUnix()) {
+            println "*** Unix ***"
+        } else if (OperatingSystem.current().isWindows()) {
+            installerType = "msi"
+
+            installerOptions = [
+                '--vendor', 'Test Vendor',
+                '--app-version', "${project.version}",
+                '--verbose',
+                '--win-dir-chooser',
+                '--win-shortcut',
+                '--win-menu',
+            ]
+        }  else {
+            println "*** Unknown ***"
+        }
+    }
+}
