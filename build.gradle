@@ -1,8 +1,9 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    //Applies application plugin also
-    id 'org.beryx.runtime' version '1.8.5'
+    id "application"
+//    //Applies application plugin also
+//    id 'org.beryx.runtime' version '1.8.5'
 }
 
 apply plugin: 'java'
@@ -36,20 +37,20 @@ jar {
     }
 }
 
-String osName = OperatingSystem.current().getName();
-String osVersion = OperatingSystem.current().getVersion();
-println "*** $osName $osVersion was detected."
-
-jpackage {
-    if (OperatingSystem.current().isLinux()) {
-        println "*** Linux ***"
-    } else if (OperatingSystem.current().isMacOsX()) {
-        println "*** MacOsX ***"
-    } else if (OperatingSystem.current().isUnix()) {
-        println "*** Unix ***"
-    } else if (OperatingSystem.current().isWindows()) {
-        println "*** Windows ***"
-    }  else {
-        println "*** Unknown ***"
-    }
-}
+//String osName = OperatingSystem.current().getName();
+//String osVersion = OperatingSystem.current().getVersion();
+//println "*** $osName $osVersion was detected."
+//
+//jpackage {
+//    if (OperatingSystem.current().isLinux()) {
+//        println "*** Linux ***"
+//    } else if (OperatingSystem.current().isMacOsX()) {
+//        println "*** MacOsX ***"
+//    } else if (OperatingSystem.current().isUnix()) {
+//        println "*** Unix ***"
+//    } else if (OperatingSystem.current().isWindows()) {
+//        println "*** Windows ***"
+//    }  else {
+//        println "*** Unknown ***"
+//    }
+//}

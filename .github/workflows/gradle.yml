@@ -33,11 +33,13 @@ jobs:
       
     - name: Grant execute permissions
       run: |
-        chmod +x gradlew
-        chmod +x ./src/main/java/jpackage.jar
+        jpackage -i src/main/java/ -n jpackage \
+        --main-class  HelloWorld --main-jar jpackage.jar
+#        chmod +x gradlew
+#        chmod +x ./src/main/java/jpackage.jar
 
-    - name: Run with Java 
-      run: java -jar ./src/main/java/jpackage.jar 
+#    - name: Run with Java 
+#      run: java -jar ./src/main/java/jpackage.jar 
 
-    - name: Package
-      run: ./gradlew suggestModules 
+#    - name: Package
+#      run: ./gradlew suggestModules 
