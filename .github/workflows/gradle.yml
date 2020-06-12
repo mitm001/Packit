@@ -26,20 +26,23 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         architecture: x64
-
-    - name: Linux commands
-      run: | 
-        jpackage --help
       
     - name: Grant execute permissions
       run: |
         chmod +x gradlew
-#        chmod +x ./src/main/java/jpackage.jar
-
-#    - name: Run with Java 
-#      run: java -jar ./src/main/java/jpackage.jar 
 
     - name: Package
       run: |
         ./gradlew build
         ./gradlew jpackage 
+        
+    - name: Commit Packages
+      uses: EndBug/add-and-commit@v4
+      with:
+        author_name: mitm001
+        author_email: mitm001@users.noreply.github.com
+        message: "Commit files for CI workflow"
+        # Commits these files to root if and only if there are changes.
+        add: "distribution/*"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
