@@ -81,6 +81,7 @@ task displayDist(type:Exec) {
     } else {
         commandLine 'sh', '-al', 'ls', '/build/distribution'
     }    
+    ignoreExitValue true
 }
 task (version).doLast {
     println "Version: $version"
