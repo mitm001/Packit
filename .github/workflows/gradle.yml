@@ -37,11 +37,11 @@ jobs:
         ./gradlew jpackage 
         
     - name: Check linux dir
-      if: ${{matrix.os.ubuntu-18.04}}
+      if: ${{matrix.os}} == 'ubuntu-18.04'
       run: ls -al ./distribution
         
     - name: Check windows  dir
-      if: ${{matrix.os.windows-2019}}
+      if: ${{matrix.os}} == 'windows-2019'
       run: dir /A ./distribution
        
     - name: Commit Packages
