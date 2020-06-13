@@ -79,7 +79,7 @@ task displayDist(type:Exec) {
     if (OperatingSystem.current().isWindows()) {
         commandLine 'cmd', 'dir', '/A', '.\\build\\distribution'
     } else {
-        commandLine 'ls', '-al', './build/distribution'
+        commandLine 'sh', 'ls', '-al', './build/distribution'
     }    
 }
 task (version).doLast {
