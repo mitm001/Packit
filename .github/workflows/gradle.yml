@@ -34,16 +34,9 @@ jobs:
     - name: Package
       run: |
         ./gradlew build
+        ls -al build
         ./gradlew jpackage 
-        
-    - name: Check linux dir
-      if: ${{matrix.os}} == 'ubuntu-18.04'
-      run: ls -al 
-        
-    - name: Check windows  dir
-      if: ${{matrix.os}} == 'windows-2019'
-      run: dir /A 
-       
+               
     - name: Commit Packages
       uses: EndBug/add-and-commit@v4
       with:
