@@ -45,7 +45,7 @@ runtime {
             installerOptions = [ 
                 '--verbose',
                 '--vendor', 'Test Vendor',
-                '--app-version', "${semver.semver}",
+//                '--app-version', "${semver.semver}",
                 '--linux-menu-group', 'Games;',
                 '--description', 'Test Description',
                 '--linux-shortcut'
