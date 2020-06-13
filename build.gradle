@@ -42,6 +42,8 @@ runtime {
         outputDir = "distribution"
 
         if (OperatingSystem.current().isLinux()) {
+            installerType = "rpm"
+            
             installerOptions = [ 
                 '--verbose',
                 '--vendor', 'Test Vendor',
@@ -62,12 +64,12 @@ runtime {
             installerType = "msi"
 
             installerOptions = [
+                '--verbose',
                 '--vendor', 'Test Vendor',
                 '--app-version', "${semver.semver}",
-                '--verbose',
                 '--win-dir-chooser',
                 '--win-shortcut',
-                '--win-menu',
+                '--win-menu'
             ]
         }  else {
             println "*** Unknown ***"
