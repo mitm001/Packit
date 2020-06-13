@@ -35,16 +35,6 @@ jobs:
       run: |
         ./gradlew build
         ./gradlew jpackage 
-        
-    - name: cmd
-      runs-on: windows-2019
-      run: dir /A \\build\\distribution
-      shell: cmd
-      
-    - name: nix
-      runs-on: [ubuntu-18.04, macos-10.15]
-      run: ls -al /build/distribution
-      shell: sh
 
     # Deploy a new release.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
@@ -60,3 +50,13 @@ jobs:
           files: |
             ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
             ./build/distribution/jpackage_1.0.0-1_amd64.deb
+            
+    runs-on: windows-2019
+    steps: 
+    - run: dir /A \\build\\distribution
+      shell: cmd
+      
+    runs-on: [ubuntu-18.04, macos-10.15]
+    steps:
+    - run: ls -al /build/distribution
+      shell: sh
