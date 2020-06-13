@@ -77,7 +77,7 @@ runtime {
 
 task displayDist(type:Exec) {
     if (OperatingSystem.current().isWindows()) {
-        commandLine 'dir', '/A', './build/distribution'
+        commandLine 'cmd', 'dir', '/A', '.\\build\\distribution'
     }
 }
 task (version).doLast {

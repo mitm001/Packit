@@ -36,14 +36,17 @@ jobs:
         ./gradlew build
         ./gradlew displayDist
         ./gradlew jpackage 
-               
-    - name: Commit Packages
-      uses: EndBug/add-and-commit@v4
+
+    # Deploy a new release.
+    # see: https://github.com/marvinpinto/action-automatic-releases for param
+    # options.
+    - name: Upload Release
+      id: upload_release
+      uses: "marvinpinto/action-automatic-releases@latest"
       with:
-        author_name: mitm001
-        author_email: mitm001@users.noreply.github.com
-        message: "Commit files for CI workflow"
-        # Commits these files to root if and only if there are changes.
-        add: "./build/distribution/jpackage-1.0.0-1.x86_64.rpm ./build/distribution/jpackage_1.0.0-1_amd64.deb"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: "latest"
+          files: |
+            ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
+            ./build/distribution/jpackage_1.0.0-1_amd64.deb
