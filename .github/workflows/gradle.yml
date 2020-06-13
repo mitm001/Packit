@@ -38,11 +38,11 @@ jobs:
         
     - name: Check linux dir
       if: ${{matrix.os}} == 'ubuntu-18.04'
-      run: ls -al ./distribution
+      run: ls -al 
         
     - name: Check windows  dir
       if: ${{matrix.os}} == 'windows-2019'
-      run: dir /A ./distribution
+      run: dir /A 
        
     - name: Commit Packages
       uses: EndBug/add-and-commit@v4
