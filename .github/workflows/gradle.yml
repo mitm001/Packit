@@ -46,13 +46,12 @@ jobs:
         automatic_release_tag: ${{matrix.os}}
         prerelease: false
         title: "Development Build"
-        files: |
+        files: | 
           ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
           ./build/distribution/jpackage_1.0.0-1_amd64.deb
           ./build/distribution/jpackage-1.0.0.msi
           ./build/distribution/jpackage-1.0.0.dmg
           ./build/distribution/jpackage-1.0.0.pkg
-          ./build/distribution/jpackage.app
             
     - if: matrix.os == 'windows-2019'
       run: dir /A .\\build\\distribution
