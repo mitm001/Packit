@@ -34,7 +34,7 @@ jobs:
     - name: Package
       run: |
         ./gradlew build
-        .gradlew displayDist
+        ./gradlew displayDist
         ./gradlew jpackage 
                
     - name: Commit Packages
