@@ -78,7 +78,8 @@ runtime {
 task displayDist(type:Exec) {
     if (OperatingSystem.current().isWindows()) {
         commandLine 'cmd', 'dir', '/A', '.\\build\\distribution'
-    }
+    } 
+    println "displayDist task"
 }
 task (version).doLast {
     println "Version: $version"
