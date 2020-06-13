@@ -40,17 +40,20 @@ jobs:
     # see: https://github.com/marvinpinto/action-automatic-releases for param
     # options.
     - name: Upload Release
-      id: upload_release
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: false
-          title: test jpackage release
-          files: |
-            ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
-            ./build/distribution/jpackage_1.0.0-1_amd64.deb
-     
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: false
+        title: "Development Build"
+        files: |
+          ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
+          ./build/distribution/jpackage_1.0.0-1_amd64.deb
+          ./build/distribution/jpackage-1.0.0.msi
+          ./build/distribution/jpackage-1.0.0.dmg
+          ./build/distribution/jpackage-1.0.0.pkg
+          ./build/distribution/jpackage.app
+            
     - if: matrix.os == 'windows-2019'
       run: dir /A .\\build\\distribution
       shell: cmd
