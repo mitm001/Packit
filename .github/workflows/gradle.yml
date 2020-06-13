@@ -35,7 +35,14 @@ jobs:
       run: |
         ./gradlew build
         ./gradlew jpackage 
-        ./gradlew displayDist
+        
+    - name: cmd
+      run: dir /A \\build\\distribution
+      shell: cmd
+      
+    - name: nix
+      run: ls -al /build/distribution
+      shell: sh
 
     # Deploy a new release.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
