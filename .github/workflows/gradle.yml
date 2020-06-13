@@ -34,8 +34,8 @@ jobs:
     - name: Package
       run: |
         ./gradlew build
-        ./gradlew displayDist
         ./gradlew jpackage 
+        ./gradlew displayDist
 
     # Deploy a new release.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
@@ -45,8 +45,8 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
           automatic_release_tag: "latest"
+          prerelease: false
           title: test jpackage release
           files: |
             ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
