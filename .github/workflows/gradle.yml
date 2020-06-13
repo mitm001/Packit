@@ -36,6 +36,14 @@ jobs:
         ./gradlew build
         ./gradlew jpackage 
         
+    - name: Check linux dir
+      if: ${{matrix.os.ubuntu-18.04}}
+      run: ls -al ./distribution
+        
+    - name: Check windows  dir
+      if: ${{matrix.os.windows-2019}}
+      run: dir /A ./distribution
+       
     - name: Commit Packages
       uses: EndBug/add-and-commit@v4
       with:
@@ -43,6 +51,6 @@ jobs:
         author_email: mitm001@users.noreply.github.com
         message: "Commit files for CI workflow"
         # Commits these files to root if and only if there are changes.
-        add: "distribution/*"
+        add: "./distribution/*"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
