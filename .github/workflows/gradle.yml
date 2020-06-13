@@ -52,9 +52,9 @@ jobs:
             ./build/distribution/jpackage_1.0.0-1_amd64.deb
      
     - if: matrix.os == 'windows-2019'
-      run: dir /A \\build\\distribution
+      run: dir /A .\\build\\distribution
       shell: cmd
      
     - if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
-      run: ls -al /build/distribution
+      run: ls -al ./build/distribution
       shell: sh
