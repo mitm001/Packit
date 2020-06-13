@@ -75,14 +75,6 @@ runtime {
     }
 }
 
-task displayDist(type:Exec) {
-    if (OperatingSystem.current().isWindows()) {
-        commandLine 'cmd', 'dir', '/A', '\\build\\distribution'
-    } else {
-        commandLine 'sh', '-al', 'ls', '/build/distribution'
-    }    
-    ignoreExitValue true
-}
 task (version).doLast {
     println "Version: $version"
 }
