@@ -75,7 +75,7 @@ runtime {
     }
 }
 
-task (displayDist) {
+task displayDist(type:Exec) {
     if (OperatingSystem.current().isWindows()) {
         commandLine 'dir', '/A', './build/distribution'
     }
