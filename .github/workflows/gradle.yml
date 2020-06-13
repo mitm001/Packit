@@ -47,7 +47,7 @@ jobs:
         prerelease: false
         title: "Development Build"
         files: | 
-          test-1.0.0-1.x86_64.rpm
+          Qpackage-1.0.0-1.x86_64.rpm
           ./build/distribution/jpackage-1.0.0-1.x86_64.rpm 
           ./build/distribution/jpackage_1.0.0-1_amd64.deb
           ./build/distribution/jpackage-1.0.0.msi
