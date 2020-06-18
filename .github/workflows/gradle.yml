@@ -53,10 +53,10 @@ jobs:
           ./build/distribution/jpackage-1.0.0.dmg
           ./build/distribution/jpackage-1.0.0.pkg
             
-    - if: matrix.os == 'windows-2019'
+    - if: runner.os == 'windows-2019'
       run: dir /A .\\build\\distribution
       shell: cmd
      
-    - if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
+    - if: runner.os == 'ubuntu-18.04' || runner.os == 'macos-10.15'
       run: ls -al ./build/distribution
       shell: sh
