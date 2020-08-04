@@ -12,7 +12,7 @@ apply plugin: 'java'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-   javaMainClass = "packit.ClickMe"
+   javaMainClass = "packit.Launcher"
 }
 
 application {

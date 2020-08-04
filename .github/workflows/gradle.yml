@@ -33,7 +33,6 @@ jobs:
 
     - name: Package
       run: |
-        ./gradlew suggestModules      
         ./gradlew build
         ./gradlew jpackage 
 
