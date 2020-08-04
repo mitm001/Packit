@@ -78,7 +78,7 @@ runtime {
                 '--app-version', "${semver.semver}",
                 '--win-shortcut',
                 '--win-menu',
-                '--win-menu-group', 'Client'
+                '--win-menu-group', "Client"
             ]
         }  else {
             println "*** Unknown ***"
