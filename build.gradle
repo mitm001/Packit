@@ -44,11 +44,9 @@ jar {
 }
 
 runtime {
-    
     launcher {
         noConsole = true
     }
-    
     jpackage {
         outputDir = "distribution"
 
@@ -77,7 +75,8 @@ runtime {
                 '--vendor', 'Test Vendor',
                 '--app-version', "${semver.semver}",
                 '--win-shortcut',
-                '--win-menu'
+                '--win-menu',
+                '--win-menu-group', "Client"
             ]
         }  else {
             println "*** Unknown ***"
