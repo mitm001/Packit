@@ -44,6 +44,10 @@ jar {
 }
 
 runtime {
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        noConsole = true
+    }
     jpackage {
         outputDir = "distribution"
 
