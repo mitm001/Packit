@@ -44,9 +44,6 @@ jar {
 }
 
 runtime {
-    launcher {
-        noConsole = true
-    }
     jpackage {
         outputDir = "distribution"
 
