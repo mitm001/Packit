@@ -19,6 +19,11 @@ application {
     mainClassName = javaMainClass
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls' ]
+}
+
 repositories {
     mavenCentral()
     // You may define additional repositories, or even remove "mavenCentral()".
@@ -39,6 +44,11 @@ jar {
 }
 
 runtime {
+    
+    launcher {
+        noConsole = true
+    }
+    
     jpackage {
         outputDir = "distribution"
 
@@ -66,9 +76,9 @@ runtime {
                 '--verbose',
                 '--vendor', 'Test Vendor',
                 '--app-version', "${semver.semver}",
-                '--win-dir-chooser',
                 '--win-shortcut',
-                '--win-menu'
+                '--win-menu',
+                '--win-menu-group', 'Client'
             ]
         }  else {
             println "*** Unknown ***"
@@ -78,9 +88,4 @@ runtime {
 
 task (version).doLast {
     println "Version: $version"
-}
-
-javafx {
-    version = "11.0.2"
-    modules = [ 'javafx.controls' ]
 }
