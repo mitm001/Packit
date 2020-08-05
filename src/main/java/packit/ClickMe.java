@@ -1,5 +1,6 @@
 package packit;
 
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,17 +17,21 @@ public class ClickMe extends Application {
      */
     public static void main(String[] args) {
         
-        for (int i = 0; i < args.length; i++) {
-            if ("client".equals(args[i])) {
-                arg = args[++i];
-            }
-        }
-        
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        
+        Parameters parameters = getParameters();
+        List<String> unnamed = parameters.getUnnamed();
+        
+        for(String s: unnamed) {
+            if ("client".equals(s)) {
+                arg = unnamed.get(unnamed.indexOf(s) + 1);
+            }
+        }
+        
         btn = new Button();
         btn.setText(arg == null ? "Click me please!": arg);
         btn.setOnAction(e -> buttonClick());
