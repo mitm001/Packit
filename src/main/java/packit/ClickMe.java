@@ -9,18 +9,26 @@ import javafx.stage.Stage;
 public class ClickMe extends Application {
     
     Button btn;
+    static String arg = null;
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        for (int i = 0; i < args.length; i++) {
+            if ("client".equals(args[i])) {
+                arg = args[++i];
+            }
+        }
+        
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         btn = new Button();
-        btn.setText("Click me please!");
+        btn.setText(arg == null ? "Click me please!": arg);
         btn.setOnAction(e -> buttonClick());
         
         BorderPane pane = new BorderPane();
@@ -37,7 +45,7 @@ public class ClickMe extends Application {
         if ("Click me please!".equals(btn.getText())) {
             btn.setText("You clicked me!");
         } else {
-            btn.setText("Click me please!");
+            btn.setText(arg == null ? "Click me please!" : arg);
         }
     }
 }
