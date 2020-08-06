@@ -1,13 +1,9 @@
 package packit;
 
 import com.sun.javafx.util.Utils;
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +14,6 @@ import javafx.stage.Stage;
 
 public class ClickMe extends Application {
 
-    private String canonicalPath;
 
     private Path parent;
 
@@ -53,8 +48,7 @@ public class ClickMe extends Application {
         
         Label lbl = new Label(path.toString());
         Label lbl2 = new Label(parent.toString());
-        Label lbl3 = new Label(canonicalPath);
-        VBox paneTop = new VBox(lbl, lbl2, lbl3);
+        VBox paneTop = new VBox(lbl, lbl2);
 
         BorderPane pane = new BorderPane();
         pane.setCenter(btn);
@@ -83,23 +77,18 @@ public class ClickMe extends Application {
         String startScript = null;
         
         if (Utils.isWindows()) {
-            env = System.getenv("LOCALAPPDATA");
-            startScript = "/jpackage/jpackage.exe"; 
+            env = System.getenv("LOCALAPPDATA") + "/jpackage/";
+            startScript = "jpackage.exe"; 
         } else if (Utils.isUnix()) {
-            env = System.getProperty("user.home");
-            startScript = "/jpackage/bin/jpackage";
+            env = System.getProperty("user.home") + "/jpackage/bin/";
+            startScript = "jpackage";
         } else if (Utils.isMac()) {
-            env = System.getProperty("user.home");
-            startScript = "/jpackage.app/Contents/MacOS/jpackage";
+            env = System.getProperty("user.home") + "/jpackage.app/Contents/MacOS/";
+            startScript = "jpackage";
         }
         
         path = Paths.get(env + startScript);
-        parent = Paths.get(env + "/jpackage");
-        try {
-            canonicalPath = new File(".").getCanonicalPath();
-        } catch (IOException ex) {
-            Logger.getLogger(ClickMe.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        parent = Paths.get(env);
         
         //Distribution registry
 //        Preferences pref = Preferences.userRoot().node("clent").node("dist");
