@@ -1,6 +1,5 @@
-package packit;
+package jpack;
 
-import com.sun.javafx.util.Utils;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -11,14 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.SystemUtils;
 
 public class ClickMe extends Application {
 
-
     private Path parent;
-
     private Path path;
-    
     Button btn;
     String arg = null;
     
@@ -76,13 +73,13 @@ public class ClickMe extends Application {
         String env = null;
         String startScript = null;
         
-        if (Utils.isWindows()) {
+        if (SystemUtils.IS_OS_WINDOWS) {
             env = System.getenv("LOCALAPPDATA") + "/jpackage/";
             startScript = "jpackage.exe"; 
-        } else if (Utils.isUnix()) {
+        } else if (SystemUtils.IS_OS_LINUX) {
             env = System.getProperty("user.home") + "/jpackage/bin/";
             startScript = "jpackage";
-        } else if (Utils.isMac()) {
+        } else if (SystemUtils.IS_OS_MAC) {
             env = System.getProperty("user.home") + "/jpackage.app/Contents/MacOS/";
             startScript = "jpackage";
         }
