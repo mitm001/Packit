@@ -28,13 +28,10 @@ jobs:
         architecture: x64
       
     - name: Grant execute permissions
-      run: |
-        chmod +x gradlew
+      run: chmod +x gradlew
 
     - name: Package
-      run: |
-        ./gradlew build
-        ./gradlew jpackage 
+      run: ./gradlew jpackage 
 
     # Deploy a new release.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
@@ -47,11 +44,11 @@ jobs:
         prerelease: false
         title: "Development Build"
         files: | 
-          ./build/distribution/jpackage-1.0.0-1.x86_64.rpm
-          ./build/distribution/jpackage_1.0.0-1_amd64.deb
-          ./build/distribution/jpackage-1.0.0.msi
-          ./build/distribution/jpackage-1.0.0.dmg
-          ./build/distribution/jpackage-1.0.0.pkg
+          ./build/distribution/*.rpm
+          ./build/distribution/*.deb
+          ./build/distribution/*.msi
+          ./build/distribution/*.dmg
+          ./build/distribution/*.pkg
             
     - if: matrix.os == 'windows-2019'
       run: dir /A .\\build\\distribution
