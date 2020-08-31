@@ -109,3 +109,10 @@ tasks.build.doLast {
     //     https://stackoverflow.com/questions/22659463/add-classpath-in-manifest-using-gradle
     //     https://gist.github.com/simon04/6865179
 //}
+
+tasks.runtime.doLast {
+    copy {
+        from 'src/main/dist'
+        into "$buildDir/distribution/packit/app"
+    }
+}
