@@ -41,7 +41,7 @@ repositories {
 dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
     implementation 'org.apache.commons:commons-lang3:3.11'
-
+    implementation fileTree(dir: "$rootProject.projectDir/updater", include: ['*.jar'])
 }
 
 //Wrap inside projectsEvaluated closure as variables are not are available until 
@@ -80,7 +80,8 @@ project.gradle.projectsEvaluated {
                     '--win-shortcut',
                     '--win-menu',
                     '--win-menu-group', 'Client',
-                    '--win-per-user-install'
+                    '--win-per-user-install',
+                    '--add-launcher', 'updater=updater/launch.properties'
                 ]
             }  else {
                 println "*** Unknown ***"
