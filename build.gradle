@@ -51,6 +51,7 @@ runtime {
         outputDir = "distribution"
 
         if (OperatingSystem.current().isLinux()) {
+            appVersion = "$version"            
             installerOptions = [ 
                 '--verbose',
                 '--vendor', 'Test Vendor',
@@ -59,6 +60,8 @@ runtime {
                 '--linux-shortcut'
             ]
         } else if (OperatingSystem.current().isMacOsX()) {
+            println "$version"
+            appVersion = "$version"            
             installerOptions = [
                 '--verbose',
                 '--vendor', 'Test Vendor',
@@ -67,7 +70,7 @@ runtime {
             println "*** Unix ***"
         } else if (OperatingSystem.current().isWindows()) {
             installerType = "msi"
-
+            appVersion = "$version"
             installerOptions = [
                 '--verbose',
                 '--vendor', 'Test Vendor',
