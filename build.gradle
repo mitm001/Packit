@@ -49,8 +49,10 @@ dependencies {
 //https://stackoverflow.com/questions/13198358/how-to-get-project-version-in-custom-gradle-plugin/13198472#13198472
 project.gradle.projectsEvaluated {
     runtime {
-        options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages', '--add-launcher', 'updater=updater/launch.properties']
-
+        options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+        additive = true
+        modules = ['updater']
+        
         jpackage {
             outputDir = "distribution"
 
