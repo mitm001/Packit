@@ -113,6 +113,6 @@ tasks.build.doLast {
 tasks.runtime.doLast {
     copy {
         from 'src/main/dist'
-        into "$buildDir/distribution/packit/app"
+        into("$buildDir/image/bin")
     }
 }
