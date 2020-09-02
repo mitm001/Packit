@@ -124,7 +124,7 @@ task packit(type:Exec) {
 
         if (OperatingSystem.current().isLinux()) {
             commandLine 'sh', '-c', 'jpackage',
-            '--linux-package-name', "$project.name",
+            '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
             '--input', file("$buildDir/install/${project.name}/lib"),
@@ -137,7 +137,7 @@ task packit(type:Exec) {
             '--linux-shortcut'
         } else if (OperatingSystem.current().isMacOsX()) {
             commandLine 'sh', '-c', 'jpackage',
-            '--mac-package-identifier', "$project.name",
+            '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
             '--input', file("$buildDir/install/${project.name}/lib"),
@@ -145,8 +145,7 @@ task packit(type:Exec) {
             '--main-jar', jar.archiveFileName.get(),
             '--dest', "${buildDir}/jpackage",
             '--verbose',
-            '--vendor', 'Test Vendor',
-            '--mac-package-name', "$project.name"
+            '--vendor', 'Test Vendor'
         } else if (OperatingSystem.current().isUnix()) {
             println "*** Unix ***"
         } else if (OperatingSystem.current().isWindows()) {
