@@ -124,8 +124,7 @@ task packit(type:Exec) {
     project.gradle.projectsEvaluated {
 
         if (OperatingSystem.current().isLinux()) {
-            executable "sh"
-            args '-c', 'jpackage',
+            commandLine 'sh', '-c', 'jpackage',
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
@@ -138,8 +137,7 @@ task packit(type:Exec) {
             '--linux-menu-group', 'Games;',
             '--linux-shortcut'
         } else if (OperatingSystem.current().isMacOsX()) {
-            executable "sh"
-            args '-c', 'jpackage',
+            commandLine 'sh', '-c', 'jpackage',
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
@@ -152,8 +150,7 @@ task packit(type:Exec) {
         } else if (OperatingSystem.current().isUnix()) {
             println "*** Unix ***"
         } else if (OperatingSystem.current().isWindows()) {
-            executable "cmd"
-            args '/c', 'jpackage',
+            commandLine 'cmd', '/c', 'jpackage',
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',             
