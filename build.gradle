@@ -116,3 +116,40 @@ tasks.build.doLast {
 //    }
 //}
 
+task packit(type:Exec) {
+
+    if (OperatingSystem.current().isLinux()) {
+        commandLine 'sh', '-c', 'jpackage'
+//        appVersion = "$version"            
+//        installerOptions = [ 
+//            '--verbose',
+//            '--vendor', 'Test Vendor',
+//            '--linux-menu-group', 'Games;',
+//            '--description', 'Test Description',
+//            '--linux-shortcut'
+//        ]
+    } else if (OperatingSystem.current().isMacOsX()) {
+        commandLine 'sh', '-c', 'jpackage'
+//        appVersion = "$version"            
+//        installerOptions = [
+//            '--verbose',
+//            '--vendor', 'Test Vendor'
+//        ]
+    } else if (OperatingSystem.current().isUnix()) {
+        println "*** Unix ***"
+    } else if (OperatingSystem.current().isWindows()) {
+        commandLine 'cmd', '/c', 'jpackage'
+//        installerType = "msi"
+//        appVersion = "$version"
+//        installerOptions = [
+//            '--verbose',
+//            '--vendor', 'Test Vendor',
+//            '--win-shortcut',
+//            '--win-menu',
+//            '--win-menu-group', 'Client',
+//            '--win-per-user-install'
+//        ]
+    }  else {
+        println "*** Unknown ***"
+    }      
+}

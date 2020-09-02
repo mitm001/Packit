@@ -31,7 +31,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Package    
-      run: jpackage 
+      run: ./gradlew packit 
 #      run: ./gradlew jpackage 
 
     # Deploy a new release. Destination is declared in build.gradle by outputDir.
