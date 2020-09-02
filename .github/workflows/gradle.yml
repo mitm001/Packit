@@ -34,7 +34,7 @@ jobs:
       run: ./gradlew packit 
 #      run: ./gradlew jpackage 
 
-    # Deploy a new release. Destination is declared in build.gradle by outputDir.
+    # Deploy a new release. Destination is declared in build.gradle by '--dest'.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
     # options.
     - name: Upload release
@@ -58,5 +58,5 @@ jobs:
     
     - name: List build linux/mac
       if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
-      run: ls -al ./build/
+      run: ls -al ./build/jpackage
       shell: sh
