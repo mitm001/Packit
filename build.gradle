@@ -116,11 +116,22 @@ tasks.build.doLast {
 //    }
 //}
 
-
-task packit(type:Exec) {
+task packitImage(type:Exec) {
     dependsOn clean
     dependsOn 'installDist'
+    project.gradle.projectsEvaluated {
+        commandLine 'cmd', '/c', 'jpackage',
+        '--type', 'app-image',
+        '--name', "${project.name}",
+        '--input', file("${buildDir}/install/${project.name}/lib"), 
+        '--main-class', "$mainClassName",            
+        '--main-jar', jar.archiveFileName.get(),
+        '--dest', "${buildDir}/jpackage"
+    }
+}
 
+task packit(type:Exec) {
+    dependsOn packitImage
     project.gradle.projectsEvaluated {
 
         if (OperatingSystem.current().isLinux()) {
@@ -128,9 +139,9 @@ task packit(type:Exec) {
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
-            '--input', file("${buildDir}/install/${project.name}/lib"),
-            '--main-class', "$mainClassName",
-            '--main-jar', jar.archiveFileName.get(),
+//            '--input', file("${buildDir}/install/${project.name}/lib"),
+//            '--main-class', "$mainClassName",
+//            '--main-jar', jar.archiveFileName.get(),
             '--dest', "${buildDir}/jpackage",
             '--verbose',
             '--vendor', 'Test Vendor',
@@ -141,9 +152,9 @@ task packit(type:Exec) {
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
-            '--input', file("${buildDir}/install/${project.name}/lib"),
-            '--main-class', "$mainClassName",
-            '--main-jar', jar.archiveFileName.get(),
+//            '--input', file("${buildDir}/install/${project.name}/lib"),
+//            '--main-class', "$mainClassName",
+//            '--main-jar', jar.archiveFileName.get(),
             '--dest', "${buildDir}/jpackage",
             '--verbose',
             '--vendor', 'Test Vendor'
@@ -151,18 +162,19 @@ task packit(type:Exec) {
             println "*** Unix ***"
         } else if (OperatingSystem.current().isWindows()) {
             commandLine 'cmd', '/c', 'jpackage',
+            '--app-image', "${buildDir}/jpackage/${project.name}",
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',             
-            '--input', file("${buildDir}/install/${project.name}/lib"),
-            '--main-class', "$mainClassName",
-            '--main-jar', jar.archiveFileName.get(),
+//            '--input', file("${buildDir}/install/${project.name}/lib"),
+//            '--main-class', "$mainClassName",
+//            '--main-jar', jar.archiveFileName.get(),
             '--dest', "${buildDir}/jpackage",
             '--verbose',
             '--vendor', 'Test Vendor',
             '--win-shortcut',
             '--win-menu',
-            '--win-menu-group', 'Client',
+            '--win-menu-group', 'Games',
             '--win-per-user-install',
             '--type', 'msi'
         }  else {
