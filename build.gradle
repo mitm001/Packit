@@ -125,7 +125,7 @@ task packit(type:Exec) {
         if (OperatingSystem.current().isLinux()) {
             commandLine 'sh', '-c', 'jpackage',
             '--linux-package-name', "$project.name",
-            '--version', "$version",
+            '--app-versionn', "$version",
             '--description', 'Test Description',            
             '--input', file("$buildDir/install/${project.name}/lib"),
             '--main-class', "$mainClassName",
@@ -138,7 +138,7 @@ task packit(type:Exec) {
         } else if (OperatingSystem.current().isMacOsX()) {
             commandLine 'sh', '-c', 'jpackage',
             '--mac-package-identifier', "$project.name",
-            '--version', "$version",
+            '--app-version', "$version",
             '--description', 'Test Description',            
             '--input', file("$buildDir/install/${project.name}/lib"),
             '--main-class', "$mainClassName",
@@ -150,10 +150,9 @@ task packit(type:Exec) {
         } else if (OperatingSystem.current().isUnix()) {
             println "*** Unix ***"
         } else if (OperatingSystem.current().isWindows()) {
-            println "$mainClassName"
             commandLine 'cmd', '/c', 'jpackage',
             '--name', "$project.name",
-            '--version', "$version",
+            '--app-version', "${version}",            
             '--description', 'Test Description',             
             '--input', file("$buildDir/install/${project.name}/lib"),
             '--main-class', "$mainClassName",
