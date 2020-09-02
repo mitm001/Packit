@@ -31,7 +31,8 @@ jobs:
       run: chmod +x gradlew
 
     - name: Package    
-      run: ./gradlew jpackage 
+      run: jpackage 
+#      run: ./gradlew jpackage 
 
     # Deploy a new release. Destination is declared in build.gradle by outputDir.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
