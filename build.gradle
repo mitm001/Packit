@@ -17,7 +17,7 @@ idea.module.downloadJavadoc = true
 
 application {
 //    mainModule = "jpack"    
-    mainClassName = "jpack.ClickMe"
+    mainClassName = "jpack.Launcher"
 }
 
 //java {
@@ -116,40 +116,62 @@ tasks.build.doLast {
 //    }
 //}
 
-task packit(type:Exec) {
 
-    if (OperatingSystem.current().isLinux()) {
-        commandLine 'sh', '-c', 'jpackage'
-//        appVersion = "$version"            
-//        installerOptions = [ 
-//            '--verbose',
-//            '--vendor', 'Test Vendor',
-//            '--linux-menu-group', 'Games;',
-//            '--description', 'Test Description',
-//            '--linux-shortcut'
-//        ]
-    } else if (OperatingSystem.current().isMacOsX()) {
-        commandLine 'sh', '-c', 'jpackage'
-//        appVersion = "$version"            
-//        installerOptions = [
-//            '--verbose',
-//            '--vendor', 'Test Vendor'
-//        ]
-    } else if (OperatingSystem.current().isUnix()) {
-        println "*** Unix ***"
-    } else if (OperatingSystem.current().isWindows()) {
-        commandLine 'cmd', '/c', 'jpackage'
-//        installerType = "msi"
-//        appVersion = "$version"
-//        installerOptions = [
-//            '--verbose',
-//            '--vendor', 'Test Vendor',
-//            '--win-shortcut',
-//            '--win-menu',
-//            '--win-menu-group', 'Client',
-//            '--win-per-user-install'
-//        ]
-    }  else {
-        println "*** Unknown ***"
-    }      
+task packit(type:Exec) {
+    dependsOn 'installDist'
+
+    project.gradle.projectsEvaluated {
+
+        if (OperatingSystem.current().isLinux()) {
+            commandLine 'sh', '-c', 'jpackage',
+            '--linux-package-name', "$project.name",
+            '--version', "$version",
+            '--description', 'Test Description',            
+            '--input', file("$buildDir/install/${project.name}/lib"),
+            '--main-class', "$mainClassName",
+            '--main-jar', jar.archiveFileName.get(),
+            '--dest', "${buildDir}/jpackage",
+            '--verbose',
+            '--vendor', 'Test Vendor',
+            '--linux-menu-group', 'Games;',
+            '--linux-shortcut'
+        } else if (OperatingSystem.current().isMacOsX()) {
+            commandLine 'sh', '-c', 'jpackage',
+            '--mac-package-identifier', "$project.name",
+            '--version', "$version",
+            '--description', 'Test Description',            
+            '--input', file("$buildDir/install/${project.name}/lib"),
+            '--main-class', "$mainClassName",
+            '--main-jar', jar.archiveFileName.get(),
+            '--dest', "${buildDir}/jpackage",
+            '--verbose',
+            '--vendor', 'Test Vendor',
+            '--mac-package-name', "$project.name"
+        } else if (OperatingSystem.current().isUnix()) {
+            println "*** Unix ***"
+        } else if (OperatingSystem.current().isWindows()) {
+            println "$mainClassName"
+            commandLine 'cmd', '/c', 'jpackage',
+            '--name', "$project.name",
+            '--version', "$version",
+            '--description', 'Test Description',             
+            '--input', file("$buildDir/install/${project.name}/lib"),
+            '--main-class', "$mainClassName",
+            '--main-jar', jar.archiveFileName.get(),
+            '--dest', "${buildDir}/jpackage",
+            '--verbose',
+            '--vendor', 'Test Vendor',
+            '--win-shortcut',
+            '--win-menu',
+            '--win-menu-group', 'Client',
+            '--win-per-user-install',
+            '--type', 'msi'
+        }  else {
+            println "*** Unknown ***"
+        }      
+    }
 }
+
+
+
+
