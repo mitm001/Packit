@@ -101,7 +101,7 @@ tasks.build.doLast {
 //    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
 
 //    manifest {
-//        attributes 'Main-Class': 'com.polygeddon.client.Main',
+//        attributes 'Main-Class': 'jpack.Launcher',
 //                   'Class-Path': configurations.compileOnly.files.collect { "lib/$it.name" }.join(' ')
 //    }
     // How-to add class path:
@@ -136,6 +136,7 @@ task packit(type:Exec) {
 
         if (OperatingSystem.current().isLinux()) {
             commandLine 'jpackage',
+            '--app-image', "${buildDir}/jpackage/${project.name}",
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
@@ -149,6 +150,7 @@ task packit(type:Exec) {
             '--linux-shortcut'
         } else if (OperatingSystem.current().isMacOsX()) {
             commandLine 'jpackage',
+            '--app-image', "${buildDir}/jpackage/${project.name}",
             '--name', "$project.name",
             '--app-version', "${version}",            
             '--description', 'Test Description',            
