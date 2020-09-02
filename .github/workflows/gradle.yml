@@ -52,6 +52,7 @@ jobs:
             
     - name: List build win
       if: matrix.os == 'windows-2019'
+      run: |
         dir /A .\\build\\jpackage
         which jpackage
       shell: cmd
