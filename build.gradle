@@ -116,72 +116,83 @@ tasks.build.doLast {
 //    }
 //}
 
+private static Iterable<String> osAdaptiveCommand(String... commands) {
+    def newCommands = []
+    if (OperatingSystem.current().isWindows()) {
+        newCommands = ['cmd', '/c',]
+    }
+
+    newCommands.addAll(commands)
+    return newCommands
+}
+
 task packitImage(type:Exec) {
     dependsOn clean
     dependsOn 'installDist'
     project.gradle.projectsEvaluated {
-        commandLine 'cmd', '/c', 'jpackage',
-        '--type', 'app-image',
-        '--name', "${project.name}",
-        '--input', file("${buildDir}/install/${project.name}/lib"), 
-        '--main-class', "$mainClassName",            
-        '--main-jar', jar.archiveFileName.get(),
-        '--dest', "${buildDir}/jpackage"
+        commandLine osAdaptiveCommand( 
+            'jpackage',
+            '--type', 'app-image',
+            '--name', "${project.name}",
+            '--input', "${buildDir}/install/${project.name}/lib", 
+            '--main-class', "$mainClassName",            
+            '--main-jar', jar.archiveFileName.get(),
+            '--dest', "${buildDir}/jpackage")
     }
 }
 
 task packit(type:Exec) {
     dependsOn packitImage
+    
     project.gradle.projectsEvaluated {
-
+        
         if (OperatingSystem.current().isLinux()) {
-            commandLine 'jpackage',
-            '--app-image', "${buildDir}/jpackage/${project.name}",
-            '--name', "$project.name",
-            '--app-version', "${version}",            
-            '--description', 'Test Description',            
-//            '--input', file("${buildDir}/install/${project.name}/lib"),
-//            '--main-class', "$mainClassName",
-//            '--main-jar', jar.archiveFileName.get(),
-            '--dest', "${buildDir}/jpackage",
-            '--verbose',
-            '--vendor', 'Test Vendor',
-            '--linux-menu-group', 'Games;',
-            '--linux-shortcut'
+
+            commandLine osAdaptiveCommand(
+                'jpackage',
+                '--app-image', "${buildDir}/jpackage/${project.name}",
+                '--name', "$project.name",
+                '--app-version', "${version}",            
+                '--description', 'Test Description',      
+                '--dest', "${buildDir}/jpackage",
+                '--verbose',
+                '--vendor', 'Test Vendor',                
+                '--linux-menu-group', 'Games;',
+                '--linux-shortcut'
+            )
+
         } else if (OperatingSystem.current().isMacOsX()) {
-            commandLine 'jpackage',
-            '--app-image', "${buildDir}/jpackage/${project.name}",
-            '--name', "$project.name",
-            '--app-version', "${version}",            
-            '--description', 'Test Description',            
-//            '--input', file("${buildDir}/install/${project.name}/lib"),
-//            '--main-class', "$mainClassName",
-//            '--main-jar', jar.archiveFileName.get(),
-            '--dest', "${buildDir}/jpackage",
-            '--verbose',
-            '--vendor', 'Test Vendor'
-        } else if (OperatingSystem.current().isUnix()) {
-            println "*** Unix ***"
-        } else if (OperatingSystem.current().isWindows()) {
-            commandLine 'cmd', '/c', 'jpackage',
-            '--app-image', "${buildDir}/jpackage/${project.name}",
-            '--name', "$project.name",
-            '--app-version', "${version}",            
-            '--description', 'Test Description',             
-//            '--input', file("${buildDir}/install/${project.name}/lib"),
-//            '--main-class', "$mainClassName",
-//            '--main-jar', jar.archiveFileName.get(),
-            '--dest', "${buildDir}/jpackage",
-            '--verbose',
-            '--vendor', 'Test Vendor',
-            '--win-shortcut',
-            '--win-menu',
-            '--win-menu-group', 'Games',
-            '--win-per-user-install',
-            '--type', 'msi'
+            commandLine osAdaptiveCommand(
+                'jpackage',
+                '--app-image', "${buildDir}/jpackage/${project.name}",
+                '--name', "$project.name",
+                '--app-version', "${version}",            
+                '--description', 'Test Description',      
+                '--dest', "${buildDir}/jpackage",
+                '--verbose',
+                '--vendor', 'Test Vendor'
+            )
+        } else if (OperatingSystem.current().isWindows()) {            
+            commandLine osAdaptiveCommand(
+                'jpackage',
+                '--app-image', "${buildDir}/jpackage/${project.name}",
+                '--name', "$project.name",
+                '--app-version', "${version}",            
+                '--description', 'Test Description',      
+                '--dest', "${buildDir}/jpackage",
+                '--verbose',
+                '--vendor', 'Test Vendor',               
+                '--win-shortcut',
+                '--win-menu',
+                '--win-menu-group', 'Games',
+                '--win-per-user-install',
+                '--type', 'msi'            
+            )
+
         }  else {
             println "*** Unknown ***"
-        }      
+        }
+
     }
 }
 
