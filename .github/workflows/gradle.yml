@@ -52,14 +52,10 @@ jobs:
             
     - name: List build win
       if: matrix.os == 'windows-2019'
-      run: |
-        dir /A .\\build\\jpackage
-        dir /A C:\\hostedtoolcache\\windows\\AdoptOpenJDK\\1.0.0-ga-14-jdk-hotspot-windows-x64-normal-latest\\x64\\bin
+      run: dir /A .\\build\\jpackage
       shell: cmd
     
     - name: List build linux/mac
       if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
-      run: |
-        ls -al ./build/jpackage
-        ls -al /opt/hostedtoolcache/AdoptOpenJDK/1.0.0-ga-14-jdk-hotspot*/x64/bin
+      run: ls -al ./build/jpackage
       shell: sh
