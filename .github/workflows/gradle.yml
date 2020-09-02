@@ -33,7 +33,7 @@ jobs:
     - name: Package    
       run: ./gradlew jpackage 
 
-    # Deploy a new release.
+    # Deploy a new release. Destination is declared in build.gradle by outputDir.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
     # options.
     - name: Upload release
@@ -44,18 +44,21 @@ jobs:
         prerelease: false
         title: "Development Build"
         files: | 
-          ./build/distribution/*.rpm
-          ./build/distribution/*.deb
-          ./build/distribution/*.msi
-          ./build/distribution/*.dmg
-          ./build/distribution/*.pkg
+          ./build/jpackage/*.rpm
+          ./build/jpackage/*.deb
+          ./build/jpackage/*.msi
+          ./build/jpackage/*.dmg
+          ./build/jpackage/*.pkg
             
     - name: List build win
       if: matrix.os == 'windows-2019'
-      run: dir /A .\\build\\distribution
+        dir /A .\\build\\jpackage
+        which jpackage
       shell: cmd
     
     - name: List build linux/mac
       if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
-      run: ls -al ./build/distribution
+      run: |
+        ls -al ./build/jpackage
+        which package
       shell: sh
