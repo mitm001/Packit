@@ -48,11 +48,9 @@ dependencies {
 //https://stackoverflow.com/questions/13198358/how-to-get-project-version-in-custom-gradle-plugin/13198472#13198472
 project.gradle.projectsEvaluated {
     runtime {
-        options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-        additive = true
-        
+        options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']        
         jpackage {
-            outputDir = "distribution"
+            outputDir = "jpackage"
 
             if (OperatingSystem.current().isLinux()) {
                 appVersion = "$version"            
@@ -67,7 +65,7 @@ project.gradle.projectsEvaluated {
                 appVersion = "$version"            
                 installerOptions = [
                     '--verbose',
-                    '--vendor', 'Test Vendor',
+                    '--vendor', 'Test Vendor'
                 ]
             } else if (OperatingSystem.current().isUnix()) {
                 println "*** Unix ***"
@@ -80,7 +78,7 @@ project.gradle.projectsEvaluated {
                     '--win-shortcut',
                     '--win-menu',
                     '--win-menu-group', 'Client',
-                    '--win-per-user-install'                    
+                    '--win-per-user-install'
                 ]
             }  else {
                 println "*** Unknown ***"
@@ -88,6 +86,7 @@ project.gradle.projectsEvaluated {
         }
     }
 }
+
 task (version).doLast {
     println "Version: $version"
 }
@@ -97,7 +96,6 @@ tasks.build.doLast {
 }
 
 //jar {
-//    from 'updater'
     // Keep jar clean:
 //    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
 
@@ -110,9 +108,10 @@ tasks.build.doLast {
     //     https://gist.github.com/simon04/6865179
 //}
 
-tasks.runtime.doLast {
-    copy {
-        from 'src/main/dist'
-        into("$buildDir/image/bin")
-    }
-}
+//tasks.runtime.doLast {
+//    copy {
+//        from "$rootProject.projectDir/src/main/dist"
+//        into "$buildDir/image/bin"
+//    }
+//}
+
