@@ -27,12 +27,12 @@ jobs:
         java-version: ${{ matrix.java }}
         architecture: x64       
     
-    - name: Patch apple finder timeout      
+    - name: Patch apple finder timeout  
+      if: matrix.os == 'macos-10.15'
       run: |
         JavaPath=$(which java)
         sqlite3 "$HOME/Library/Application Support/com.apple.TCC/TCC.db" "insert into access (service, client, client_type, allowed, prompt_count, indirect_object_identifier_type, indirect_object_identifier) values ('kTCCServiceAppleEvents', '$JavaPath', 1, 1, 1, 0, 'com.apple.finder')"
 
-    
     - name: Grant execute permissions
       run: chmod +x gradlew
 
