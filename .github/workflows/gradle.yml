@@ -25,7 +25,7 @@ jobs:
       uses: joschi/setup-jdk@v2
       with:
         java-version: ${{ matrix.java }}
-        #architecture: x64       
+        architecture: x64       
       
     - name: Grant execute permissions
       run: chmod +x gradlew
@@ -59,9 +59,4 @@ jobs:
     - name: List build linux/mac
       if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
       run: ls -al ./build/jpackage
-      shell: sh
-      
-    - name: find libjvm
-      if: matrix.os == 'ubuntu-18.04'
-      run: find . -name "libjvm*"
       shell: sh
