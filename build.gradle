@@ -85,16 +85,6 @@ task packitImage(type:Exec) {
         ]
         
         commandLine osAdaptiveCommand(arg)
-        
-//        commandLine osAdaptiveCommand( 
-//            'jpackage',
-//            '--type', 'app-image',
-//            '--name', "$project.name",
-//            '--input', "${buildDir}/install/${project.name}/lib", 
-//            '--main-class', "$mainClassName",            
-//            '--main-jar', jar.archiveFileName.get(),
-//            '--dest', "${buildDir}/${packageDir}"
-//        )
     }
 }
 
@@ -122,18 +112,6 @@ task packit(type:Exec) {
             arg.addAll(osArgs)
             commandLine arg
             
-//            commandLine osAdaptiveCommand(
-//                'jpackage',
-//                '--app-image', "${buildDir}/${packageDir}/${project.name}",
-//                '--name', "$project.name",
-//                '--app-version', "$version",            
-//                '--description', 'Test Description',      
-//                '--dest', "${buildDir}/${packageDir}",
-//                '--verbose',
-//                '--vendor', 'Test Vendor',                
-//                '--linux-menu-group', 'Games;',
-//                '--linux-shortcut'
-//            )
         } else if (OperatingSystem.current().isMacOsX()) {
             def osArgs = [
                 '--app-image', "${buildDir}/${packageDir}/${project.name}.app",
@@ -141,17 +119,7 @@ task packit(type:Exec) {
             
             arg.addAll(osArgs)
             commandLine arg
-            
-//            commandLine osAdaptiveCommand(
-//                'jpackage',
-//                '--app-image', "${buildDir}/${packageDir}/${project.name}.app",
-//                '--name', "$project.name",
-//                '--app-version', "$version",            
-//                '--description', 'Test Description',      
-//                '--dest', "${buildDir}/${packageDir}",
-//                '--verbose',
-//                '--vendor', 'Test Vendor'
-//            )
+
         } else if (OperatingSystem.current().isWindows()) {
             def osArgs = [
                 '--app-image', "${buildDir}/${packageDir}/${project.name}",
@@ -164,22 +132,7 @@ task packit(type:Exec) {
 
             arg.addAll(osArgs)
             commandLine osAdaptiveCommand(arg)
-            
-//            commandLine osAdaptiveCommand(
-//                'jpackage',
-//                '--app-image', "${buildDir}/${packageDir}/${project.name}",
-//                '--name', "$project.name",
-//                '--app-version', "$version",            
-//                '--description', 'Test Description',      
-//                '--dest', "${buildDir}/${packageDir}",
-//                '--verbose',
-//                '--vendor', 'Test Vendor',               
-//                '--win-shortcut',
-//                '--win-menu',
-//                '--win-menu-group', 'Games',
-//                '--win-per-user-install',
-//                '--type', 'msi'            
-//            )
+
         }  else {
             println "*** Unknown ***"
         }

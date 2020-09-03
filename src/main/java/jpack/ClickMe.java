@@ -88,19 +88,6 @@ public class ClickMe extends Application {
         
         path = Paths.get(appDir + startCfg);
         parent = Paths.get(appDir);
-        
-        //Distribution registry
-//        Preferences pref = Preferences.userRoot().node("clent").node("dist");
-//        pref = null;
-//        pref = Preferences.userRoot().node("packit").node("dist").node("updater");
-//        pref.remove("startscript");
-//        pref.put("startscript", path);
-//        pref.remove("parent");
-//        pref.put("parent", "C:/Users/Robert/Documents/Client");
-//        pref = null;
-//        pref = Preferences.userRoot().node("packit").node("dist").node("client");
-//        pref.remove("startscript");
-//        pref.put("startscript", "C:/Users/Robert/Documents/Client/bin/client_startup.bat");
-        
+                
     }
 }
