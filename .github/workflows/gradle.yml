@@ -68,5 +68,5 @@ jobs:
 
     - name: Look for libjvm.so
       if: matrix.os == 'ubuntu-18.04'
-      run: ls -al ${{ env.JAVA_HOME }}
+      run: ls -al "${{ env.JAVA_HOME }}/lib"
       shell: sh
