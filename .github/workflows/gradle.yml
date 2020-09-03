@@ -36,10 +36,13 @@ jobs:
     - name: Grant execute permissions
       run: chmod +x gradlew
 
+    #Have to add path to libjvm.so manually (LD_LIBRARY_PATH) or cannot find for
+    #linux build.
     - name: Package    
       run: ./gradlew packit 
       env:
         LD_LIBRARY_PATH: "${{ env.JAVA_HOME }}/lib/server"
+    
     # Deploy a new release. Destination is declared in build.gradle by '--dest'.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
     # options.
@@ -65,11 +68,4 @@ jobs:
     - name: List build linux/mac
       if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
       run: ls -al ./build/jpackage
-      shell: sh
-
-    - name: Look for libjvm.so
-      if: matrix.os == 'ubuntu-18.04'
-      run: |
-        java -XshowSettings:properties -version
-        ls -al "${{ env.JAVA_HOME }}/lib/server"
       shell: sh
