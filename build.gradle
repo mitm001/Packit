@@ -162,16 +162,16 @@ task packit(type:Exec) {
             )
 
         } else if (OperatingSystem.current().isMacOsX()) {
-            commandLine 'jpackage',
-            '--name', "$project.name",
-            '--app-version', "${version}",            
-            '--description', 'Test Description',            
-            '--input', "${buildDir}/install/${project.name}/lib",
-            '--main-class', "$mainClassName",
-            '--main-jar', jar.archiveFileName.get(),
-            '--dest', "${buildDir}/jpackage",
-            '--verbose',
-            '--vendor', 'Test Vendor'
+            commandLine osAdaptiveCommand(
+                'jpackage',
+                '--app-image', "${buildDir}/jpackage/${project.name}.app",
+                '--name', "$project.name",
+                '--app-version', "${version}",            
+                '--description', 'Test Description',      
+                '--dest', "${buildDir}/jpackage",
+                '--verbose',
+                '--vendor', 'Test Vendor'
+            )
         } else if (OperatingSystem.current().isWindows()) {            
             commandLine osAdaptiveCommand(
                 'jpackage',
