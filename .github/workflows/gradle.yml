@@ -19,7 +19,7 @@ jobs:
       with:
         # Number of commits to fetch. 0 indicates all history.  
         fetch-depth: 1
-          
+    
     #https://github.com/joschi/setup-jdk
     - name: Set up OpenJDK 
       uses: joschi/setup-jdk@v2
@@ -31,8 +31,10 @@ jobs:
       run: chmod +x gradlew
 
     - name: Package    
-      run: ./gradlew packit 
-#      run: ./gradlew jpackage 
+      run: |
+        JavaPath=$(which java)
+        sqlite3 "$HOME/Library/Application Support/com.apple.TCC/TCC.db" "insert into access (service, client, client_type, allowed, prompt_count, indirect_object_identifier_type, indirect_object_identifier) values ('kTCCServiceAppleEvents', '$JavaPath', 1, 1, 1, 0, 'com.apple.finder')"
+        ./gradlew packit 
 
     # Deploy a new release. Destination is declared in build.gradle by '--dest'.
     # see: https://github.com/marvinpinto/action-automatic-releases for param

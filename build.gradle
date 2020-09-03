@@ -1,10 +1,8 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    //Applies application plugin also
-//    id 'org.beryx.runtime' version '1.11.3'
     id 'net.thauvin.erik.gradle.semver' version '1.0.4' 
-    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'idea'
 }
 
@@ -16,13 +14,8 @@ apply plugin: 'application'
 idea.module.downloadJavadoc = true
 
 application {
-//    mainModule = "jpack"    
     mainClassName = "jpack.Launcher"
 }
-
-//java {
-//    modularity.inferModulePath = true
-//}
 
 javafx {
     version = "14"
@@ -44,50 +37,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.11'
 }
 
-//Wrap inside projectsEvaluated closure as variables are not are available until 
-//after the Configuration phase.
-//https://stackoverflow.com/questions/13198358/how-to-get-project-version-in-custom-gradle-plugin/13198472#13198472
-//project.gradle.projectsEvaluated {
-//    runtime {
-//        options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']        
-//        jpackage {
-//            outputDir = "jpackage"
-//
-//            if (OperatingSystem.current().isLinux()) {
-//                appVersion = "$version"            
-//                installerOptions = [ 
-//                    '--verbose',
-//                    '--vendor', 'Test Vendor',
-//                    '--linux-menu-group', 'Games;',
-//                    '--description', 'Test Description',
-//                    '--linux-shortcut'
-//                ]
-//            } else if (OperatingSystem.current().isMacOsX()) {
-//                appVersion = "$version"            
-//                installerOptions = [
-//                    '--verbose',
-//                    '--vendor', 'Test Vendor'
-//                ]
-//            } else if (OperatingSystem.current().isUnix()) {
-//                println "*** Unix ***"
-//            } else if (OperatingSystem.current().isWindows()) {
-//                installerType = "msi"
-//                appVersion = "$version"
-//                installerOptions = [
-//                    '--verbose',
-//                    '--vendor', 'Test Vendor',
-//                    '--win-shortcut',
-//                    '--win-menu',
-//                    '--win-menu-group', 'Client',
-//                    '--win-per-user-install'
-//                ]
-//            }  else {
-//                println "*** Unknown ***"
-//            }
-//        }
-//    }
-//}
-
 task (version).doLast {
     println "Version: $version"
 }
@@ -107,13 +56,6 @@ tasks.build.doLast {
     // How-to add class path:
     //     https://stackoverflow.com/questions/22659463/add-classpath-in-manifest-using-gradle
     //     https://gist.github.com/simon04/6865179
-//}
-
-//tasks.runtime.doLast {
-//    copy {
-//        from "$rootProject.projectDir/src/main/dist"
-//        into "$buildDir/image/bin"
-//    }
 //}
 
 private static Iterable<String> osAdaptiveCommand(String... commands) {
@@ -160,7 +102,6 @@ task packit(type:Exec) {
                 '--linux-menu-group', 'Games;',
                 '--linux-shortcut'
             )
-
         } else if (OperatingSystem.current().isMacOsX()) {
             commandLine osAdaptiveCommand(
                 'jpackage',
@@ -188,7 +129,6 @@ task packit(type:Exec) {
                 '--win-per-user-install',
                 '--type', 'msi'            
             )
-
         }  else {
             println "*** Unknown ***"
         }

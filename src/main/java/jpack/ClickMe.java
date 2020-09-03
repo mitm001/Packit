@@ -66,37 +66,39 @@ public class ClickMe extends Application {
         }
     }
     
-        /**
+    /**
      * Method to set the registry settings for testing.
      */
     private void configurePreferences() {
-        String env = null;
-        String startScript = null;
+        String appDir = null;
+        String startCfg = null;
+        String appLauncher = null;
+        String launcherDir = null;
         
         if (SystemUtils.IS_OS_WINDOWS) {
-            env = System.getenv("LOCALAPPDATA") + "/jpackage/";
-            startScript = "jpackage.exe"; 
+            appDir = System.getenv("LOCALAPPDATA") + "/packit/app";
+            startCfg = "packit.cfg"; 
         } else if (SystemUtils.IS_OS_LINUX) {
-            env = System.getProperty("user.home") + "/jpackage/bin/";
-            startScript = "jpackage";
+            appDir = System.getProperty("user.home") + "/packit/lib/app/";
+            startCfg = "packit";
         } else if (SystemUtils.IS_OS_MAC) {
-            env = System.getProperty("user.home") + "/jpackage.app/Contents/MacOS/";
-            startScript = "jpackage";
+            appDir = System.getProperty("user.home") + "/packit.app/Contents/app/";
+            startCfg = "packit";
         }
         
-        path = Paths.get(env + startScript);
-        parent = Paths.get(env);
+        path = Paths.get(appDir + startCfg);
+        parent = Paths.get(appDir);
         
         //Distribution registry
 //        Preferences pref = Preferences.userRoot().node("clent").node("dist");
 //        pref = null;
-//        pref = Preferences.userRoot().node("polygeddon").node("dist").node("updater");
+//        pref = Preferences.userRoot().node("packit").node("dist").node("updater");
 //        pref.remove("startscript");
-//        pref.put("startscript", "C:/Users/Robert/Documents/Client/Updater/bin/updater_startup.bat");
+//        pref.put("startscript", path);
 //        pref.remove("parent");
 //        pref.put("parent", "C:/Users/Robert/Documents/Client");
 //        pref = null;
-//        pref = Preferences.userRoot().node("polygeddon").node("dist").node("client");
+//        pref = Preferences.userRoot().node("packit").node("dist").node("client");
 //        pref.remove("startscript");
 //        pref.put("startscript", "C:/Users/Robert/Documents/Client/bin/client_startup.bat");
         
