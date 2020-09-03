@@ -20,18 +20,12 @@ jobs:
         # Number of commits to fetch. 0 indicates all history.  
         fetch-depth: 1
     
-    - uses: actions/setup-java@v1
-      with:
-        java-version: '14.0.1' 
-        java-package: jdk 
-        architecture: x64 
-    
     #https://github.com/joschi/setup-jdk
-#    - name: Set up OpenJDK 
-#      uses: joschi/setup-jdk@v2
-#      with:
-#        java-version: ${{ matrix.java }}
-#        architecture: x64       
+    - name: Set up OpenJDK 
+      uses: joschi/setup-jdk@v2
+      with:
+        java-version: ${{ matrix.java }}
+        architecture: x64       
     
     - name: Patch apple finder timeout  
       if: matrix.os == 'macos-10.15'
