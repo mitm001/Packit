@@ -26,15 +26,18 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
         architecture: x64       
-      
+    
+    - name: Patch apple finder timeout      
+      run: |
+        JavaPath=$(which java)
+        sqlite3 "$HOME/Library/Application Support/com.apple.TCC/TCC.db" "insert into access (service, client, client_type, allowed, prompt_count, indirect_object_identifier_type, indirect_object_identifier) values ('kTCCServiceAppleEvents', '$JavaPath', 1, 1, 1, 0, 'com.apple.finder')"
+
+    
     - name: Grant execute permissions
       run: chmod +x gradlew
 
     - name: Package    
-      run: |
-        JavaPath=$(which java)
-        sqlite3 "$HOME/Library/Application Support/com.apple.TCC/TCC.db" "insert into access (service, client, client_type, allowed, prompt_count, indirect_object_identifier_type, indirect_object_identifier) values ('kTCCServiceAppleEvents', '$JavaPath', 1, 1, 1, 0, 'com.apple.finder')"
-        ./gradlew packit 
+      run: ./gradlew packit 
 
     # Deploy a new release. Destination is declared in build.gradle by '--dest'.
     # see: https://github.com/marvinpinto/action-automatic-releases for param
