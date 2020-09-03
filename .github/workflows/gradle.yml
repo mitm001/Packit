@@ -46,7 +46,7 @@ jobs:
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: ${{matrix.os}}
+        automatic_release_tag: ${{ matrix.os }}
         prerelease: false
         title: "Development Build"
         files: | 
@@ -64,4 +64,9 @@ jobs:
     - name: List build linux/mac
       if: matrix.os == 'ubuntu-18.04' || matrix.os == 'macos-10.15'
       run: ls -al ./build/jpackage
+      shell: sh
+
+    - name: Look for libjvm.so
+      if: matrix.os == 'ubuntu-18.04'
+      run: ls -al ${{ env.JAVA_HOME }}
       shell: sh
