@@ -69,6 +69,6 @@ jobs:
     - name: Look for libjvm.so
       if: matrix.os == 'ubuntu-18.04'
       run: |
-        java --version
+        java -XshowSettings:properties -version
         ls -al "${{ env.JAVA_HOME }}/lib/server"
       shell: sh
