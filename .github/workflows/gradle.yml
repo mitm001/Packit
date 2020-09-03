@@ -57,6 +57,6 @@ jobs:
       shell: cmd
     
     - name: List build linux/mac
-      if: matrix.os == 'ubuntu-ubuntu-20.04' || matrix.os == 'macos-10.15'
+      if: matrix.os == 'ubuntu-20.04' || matrix.os == 'macos-10.15'
       run: ls -al ./build/jpackage
       shell: sh
