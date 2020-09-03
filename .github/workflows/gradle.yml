@@ -63,5 +63,5 @@ jobs:
       
     - name: find libjvm
       if: matrix.os == 'ubuntu-18.04'
-      run: find . -name "libjvm*
+      run: find . -name "libjvm*"
       shell: sh
