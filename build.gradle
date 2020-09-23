@@ -19,6 +19,7 @@ application {
 
 //The dir under $buildDir for the app image
 def packageDir = "jpackage"
+//The location of the app dir inside the packageDir
 def appDirLinux = "${project.name}/lib/app"
 def appDirMacOsX = "${project.name}.app/Contents/app"
 def appDirWin = "${project.name}/app"
@@ -62,7 +63,7 @@ private static Iterable<String> osAdaptiveCommand(List<String> commands) {
 }
 
 task copyUpdater(type:Copy) {
-    description 'Copy updater files to the app image before packaging.'
+    description 'Copy files to the app image before packaging.'
     from "${buildDir}/install/${project.name}/updater"
     if (OperatingSystem.current().isLinux()) {
         into "${buildDir}/${packageDir}/${appDirLinux}/updater"
