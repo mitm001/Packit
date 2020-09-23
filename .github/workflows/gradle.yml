@@ -71,13 +71,12 @@ jobs:
       if: matrix.os == 'ubuntu-18.04' 
       run: |
         ls -al ./build/jpackage/packit
-        ls -al ./build/jpackage/packit/lib
-        ls -al ./build/jpackage/packit/bin
+        ls -al ./build/jpackage/packit/lib/app
       shell: sh
 
     - name: List build mac
       if: matrix.os == 'macos-10.15'
       run: |
         ls -al ./build/jpackage/packit.app
-        ls -al ./build/jpackage/packit.app/Contents
+        ls -al ./build/jpackage/packit.app/Contents/app
       shell: sh        

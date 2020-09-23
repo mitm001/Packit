@@ -17,7 +17,11 @@ application {
     mainClassName = "jpack.Launcher"
 }
 
+//The dir under $buildDir for the app image
 def packageDir = "jpackage"
+def appDirLinux = "${project.name}/lib/app"
+def appDirMacOsX = "${project.name}.app/Contents/app"
+def appDirWin = "${project.name}/app"
 
 javafx {
     version = "14"
@@ -47,19 +51,6 @@ tasks.build.doLast {
     println "Version: $version"
 }
 
-//jar {
-    // Keep jar clean:
-//    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA', 'META-INF/*.MF'
-
-//    manifest {
-//        attributes 'Main-Class': 'jpack.Launcher',
-//                   'Class-Path': configurations.compileOnly.files.collect { "lib/$it.name" }.join(' ')
-//    }
-    // How-to add class path:
-    //     https://stackoverflow.com/questions/22659463/add-classpath-in-manifest-using-gradle
-    //     https://gist.github.com/simon04/6865179
-//}
-
 private static Iterable<String> osAdaptiveCommand(List<String> commands) {
     def newCommands = []
     if (OperatingSystem.current().isWindows()) {
@@ -71,13 +62,14 @@ private static Iterable<String> osAdaptiveCommand(List<String> commands) {
 }
 
 task copyUpdater(type:Copy) {
+    description 'Copy updater files to the app image before packaging.'
     from "${buildDir}/install/${project.name}/updater"
     if (OperatingSystem.current().isLinux()) {
-        into "${buildDir}/${packageDir}/${project.name}/lib/app/updater"
+        into "${buildDir}/${appDirLinux}/updater"
     } else if (OperatingSystem.current().isMacOsX()) {
-        into "${buildDir}/${packageDir}/${project.name}.app/Contents/app/updater"
+        into "${buildDir}/${packageDir}/${appDirMacOsX}/updater"
     } else if (OperatingSystem.current().isWindows()) {
-        into "${buildDir}/${packageDir}/${project.name}/app/updater"
+        into "${buildDir}/${packageDir}/${appDirWin}/updater"
     } 
 }
 
@@ -152,7 +144,7 @@ task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
 
 //Copy the updater to the distribution after the app-image is built. Doing this 
 //here keeps the updater off the classpath in the cfg for the main application.
-//packitImage.finalizedBy copyUpdater
+packitImage.finalizedBy copyUpdater
 
 
 
