@@ -62,8 +62,9 @@ jobs:
             
     - name: List build win
       if: matrix.os == 'windows-2019'
-      run: dir /A .\\build\\jpackage\\packit
-      run: dir /A .\\build\\jpackage\\packit\\app
+      run: |
+       dir /A .\\build\\jpackage\\packit
+       dir /A .\\build\\jpackage\\packit\\app
       shell: cmd
     
     - name: List build linux
