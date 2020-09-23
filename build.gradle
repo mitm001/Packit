@@ -70,27 +70,13 @@ private static Iterable<String> osAdaptiveCommand(List<String> commands) {
     return newCommands
 }
 
-task packitImage(type:Exec) {
-    dependsOn clean
-    dependsOn 'installDist'
-    project.gradle.projectsEvaluated {
-        def arg = [
-            'jpackage',
-            '--type', 'app-image',
-            '--name', "$project.name",
-            '--input', "${buildDir}/install/${project.name}/lib", 
-            '--main-class', "$mainClassName",            
-            '--main-jar', jar.archiveFileName.get(),
-            '--dest', "${buildDir}/${packageDir}"
-        ]
-        
-        commandLine osAdaptiveCommand(arg)
-    }
+task copyUpdater(type:Copy) {
+    from "${buildDir}/install/${project.name}/updater"
+    into "${buildDir}/${packageDir}/${project.name}/app/updater"
 }
 
-task packit(type:Exec) {
-    dependsOn packitImage
-    
+task packit(type:Exec, dependsOn:'packitImage') {
+    //If project has not evaluated, version will be null
     project.gradle.projectsEvaluated {
         def arg = [
             'jpackage', 
@@ -127,7 +113,7 @@ task packit(type:Exec) {
                 '--win-menu',
                 '--win-menu-group', 'Games',
                 '--win-per-user-install',
-                '--type', 'msi' 
+                '--type', 'msi'
             ]
 
             arg.addAll(osArgs)
@@ -136,9 +122,31 @@ task packit(type:Exec) {
         }  else {
             println "*** Unknown ***"
         }
-
     }
 }
+
+task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
+    // If project has not evaluated, configured --main-jar does not exist in the 
+    // --input directory.
+    project.gradle.projectsEvaluated {
+        def arg = [
+            'jpackage',
+            '--type', 'app-image',
+            '--name', "$project.name",
+            '--input', "${buildDir}/install/${project.name}/lib", 
+            '--main-class', "$mainClassName",            
+            '--main-jar', jar.archiveFileName.get(),
+            '--dest', "${buildDir}/${packageDir}"
+        ]
+        
+        commandLine osAdaptiveCommand(arg)
+    }
+        
+}
+
+//Copy the updater to the distribution after the app-image is built. Doing this 
+//here keeps the updater off the classpath in the cfg for the main application.
+packitImage.finalizedBy copyUpdater
 
 
 
