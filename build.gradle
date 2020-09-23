@@ -152,7 +152,7 @@ task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
 
 //Copy the updater to the distribution after the app-image is built. Doing this 
 //here keeps the updater off the classpath in the cfg for the main application.
-packitImage.finalizedBy copyUpdater
+//packitImage.finalizedBy copyUpdater
 
 
 

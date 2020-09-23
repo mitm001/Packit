@@ -63,14 +63,20 @@ jobs:
     - name: List build win
       if: matrix.os == 'windows-2019'
       run: dir /A .\\build\\jpackage\\packit
+      run: dir /A .\\build\\jpackage\\packit\\app
       shell: cmd
     
     - name: List build linux
       if: matrix.os == 'ubuntu-18.04' 
-      run: ls -al ./build/jpackage/packit
+      run: |
+        ls -al ./build/jpackage/packit
+        ls -al ./build/jpackage/packit/lib
+        ls -al ./build/jpackage/packit/bin
       shell: sh
 
     - name: List build mac
       if: matrix.os == 'macos-10.15'
-      run: ls -al ./build/jpackage/packit.app
+      run: |
+        ls -al ./build/jpackage/packit.app
+        ls -al ./build/jpackage/packit.app/Contents
       shell: sh        
