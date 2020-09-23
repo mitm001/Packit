@@ -65,7 +65,7 @@ task copyUpdater(type:Copy) {
     description 'Copy updater files to the app image before packaging.'
     from "${buildDir}/install/${project.name}/updater"
     if (OperatingSystem.current().isLinux()) {
-        into "${buildDir}/${appDirLinux}/updater"
+        into "${buildDir}/${packageDir}/${appDirLinux}/updater"
     } else if (OperatingSystem.current().isMacOsX()) {
         into "${buildDir}/${packageDir}/${appDirMacOsX}/updater"
     } else if (OperatingSystem.current().isWindows()) {
