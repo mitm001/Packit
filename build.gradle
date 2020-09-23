@@ -72,7 +72,13 @@ private static Iterable<String> osAdaptiveCommand(List<String> commands) {
 
 task copyUpdater(type:Copy) {
     from "${buildDir}/install/${project.name}/updater"
-    into "${buildDir}/${packageDir}/${project.name}/app/updater"
+    if (OperatingSystem.current().isLinux()) {
+        into "${buildDir}/${packageDir}/${project.name}/lib/app/updater"
+    } else if (OperatingSystem.current().isMacOsX()) {
+        into "${buildDir}/${packageDir}/${project.name}.app/Contents/app/updater"
+    } else if (OperatingSystem.current().isWindows()) {
+        into "${buildDir}/${packageDir}/${project.name}/app/updater"
+    } 
 }
 
 task packit(type:Exec, dependsOn:'packitImage') {
