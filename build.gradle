@@ -76,62 +76,61 @@ task copyUpdater(type:Copy) {
 
 task packit(type:Exec, dependsOn:'packitImage') {
     //If project has not evaluated, version will be null
-    project.gradle.projectsEvaluated {
-        def arg = [
-            'jpackage', 
-            '--name', "$project.name", 
-            '--app-version', "$version",
-            '--description', 'Test Description',
-            '--dest', "${buildDir}/${packageDir}",
-            '--verbose',
-            '--vendor', 'Test Vendor'
+    def arg = [
+        'jpackage', 
+        '--name', "$project.name", 
+        '--app-version', "${-> project.version}",
+        '--description', 'Test Description',
+        '--dest', "${buildDir}/${packageDir}",
+        '--verbose',
+        '--vendor', 'Test Vendor'
+    ]
+
+    if (OperatingSystem.current().isLinux()) {
+        def osArgs = [
+            '--app-image', "${buildDir}/${packageDir}/${project.name}",
+            '--linux-menu-group', 'Games;',
+            '--linux-shortcut'
         ]
 
-        if (OperatingSystem.current().isLinux()) {
-            def osArgs = [
-                '--app-image', "${buildDir}/${packageDir}/${project.name}",
-                '--linux-menu-group', 'Games;',
-                '--linux-shortcut'
-            ]
-            
-            arg.addAll(osArgs)
-            commandLine arg
-            
-        } else if (OperatingSystem.current().isMacOsX()) {
-            def osArgs = [
-                '--app-image', "${buildDir}/${packageDir}/${project.name}.app",
-            ]
-            
-            arg.addAll(osArgs)
-            commandLine arg
+        arg.addAll(osArgs)
+        commandLine arg
 
-        } else if (OperatingSystem.current().isWindows()) {
-            def osArgs = [
-                '--app-image', "${buildDir}/${packageDir}/${project.name}",
-                '--win-shortcut',
-                '--win-menu',
-                '--win-menu-group', 'Games',
-                '--win-per-user-install',
-                '--type', 'msi'
-            ]
+    } else if (OperatingSystem.current().isMacOsX()) {
+        def osArgs = [
+            '--app-image', "${buildDir}/${packageDir}/${project.name}.app",
+        ]
 
-            arg.addAll(osArgs)
-            commandLine osAdaptiveCommand(arg)
+        arg.addAll(osArgs)
+        commandLine arg
 
-        }  else {
-            println "*** Unknown ***"
-        }
+    } else if (OperatingSystem.current().isWindows()) {
+        def osArgs = [
+            '--app-image', "${buildDir}/${packageDir}/${project.name}",
+            '--win-shortcut',
+            '--win-menu',
+            '--win-menu-group', 'Games',
+            '--win-per-user-install',
+            '--type', 'msi'
+        ]
+
+        arg.addAll(osArgs)
+        commandLine osAdaptiveCommand(arg)
+
+    }  else {
+        println "*** Unknown ***"
     }
 }
 
 task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
     // If project has not evaluated, configured --main-jar does not exist in the 
-    // --input directory.
+    // --input directory. Add any additional launchers here.
     project.gradle.projectsEvaluated {
         def arg = [
             'jpackage',
             '--type', 'app-image',
             '--name', "$project.name",
+            '--app-version', "$version",            
             '--input', "${buildDir}/install/${project.name}/lib", 
             '--main-class', "$mainClassName",            
             '--main-jar', jar.archiveFileName.get(),
