@@ -62,7 +62,9 @@ private static Iterable<String> osAdaptiveCommand(List<String> commands) {
     return newCommands
 }
 
-task copyUpdater(type:Copy) {
+//Example files are in src/main/dist so the application plugin picks them up and 
+//moves into install dir.
+task copyResources(type:Copy) {
     description 'Copy files to the app image before packaging.'
     from "${buildDir}/install/${project.name}/updater"
     if (OperatingSystem.current().isLinux()) {
@@ -144,7 +146,7 @@ task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
 
 //Copy the updater to the distribution after the app-image is built. Doing this 
 //here keeps the updater off the classpath in the cfg for the main application.
-packitImage.finalizedBy copyUpdater
+packitImage.finalizedBy copyResources
 
 
 
