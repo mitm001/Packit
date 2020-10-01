@@ -75,5 +75,5 @@ jobs:
     - name: List build mac
       if: matrix.os == 'macos-10.15'
       run: |
-        ls -al ./build/jpackage/${{ github.event.repoitory.name }}.app
+        ls -al ./build/jpackage/${{ github.event.repository.name }}.app
       shell: sh        
