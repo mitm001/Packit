@@ -138,7 +138,8 @@ task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
             '--main-jar', jar.archiveFileName.get(),
             '--dest', "${buildDir}/${packageDir}"
         ]
-        
+        def help = ['jpackage', '-h']
+        commandLine osAdaptiveCommand(help)
         commandLine osAdaptiveCommand(arg)
     }
         
