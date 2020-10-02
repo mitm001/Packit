@@ -116,8 +116,8 @@ task packit(type:Exec, dependsOn:'packitImage') {
             '--type', 'msi'
         ]
 
-        arg.addAll(osArgs)
-        commandLine osAdaptiveCommand(arg)
+//        arg.addAll(osArgs)
+//        commandLine osAdaptiveCommand(arg)
         
         def help = ['jpackage', '-h']
         commandLine osAdaptiveCommand(help)
