@@ -99,7 +99,7 @@ task packit(type:Exec, dependsOn:'packitImage') {
 //        commandLine arg
     } else if (OperatingSystem.current().isMacOsX()) {
         def osArgs = [
-            '--app-image', "${buildDir}/${packageDir}/${project.name}.app",
+            '--app-image', "${buildDir}/${packageDir}/${project.name}.app"
         ]
 
         arg.addAll(osArgs)
@@ -120,10 +120,8 @@ task packit(type:Exec, dependsOn:'packitImage') {
         println "*** Unknown ***"
     }
     
-    
-    def help = ['jpackage', '-h']
+println arg    
     commandLine osAdaptiveCommand(arg)
-    commandLine osAdaptiveCommand(help)
 }
 
 task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
