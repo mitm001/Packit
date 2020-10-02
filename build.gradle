@@ -118,6 +118,9 @@ task packit(type:Exec, dependsOn:'packitImage') {
 
         arg.addAll(osArgs)
         commandLine osAdaptiveCommand(arg)
+        
+        def help = ['jpackage', '-h']
+        commandLine osAdaptiveCommand(help)
 
     }  else {
         println "*** Unknown ***"
@@ -138,8 +141,7 @@ task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
             '--main-jar', jar.archiveFileName.get(),
             '--dest', "${buildDir}/${packageDir}"
         ]
-        def help = ['jpackage', '-h']
-        commandLine osAdaptiveCommand(help)
+
         commandLine osAdaptiveCommand(arg)
     }
         
