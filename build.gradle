@@ -96,16 +96,14 @@ task packit(type:Exec, dependsOn:'packitImage') {
         ]
 
         arg.addAll(osArgs)
-        commandLine arg
-
+//        commandLine arg
     } else if (OperatingSystem.current().isMacOsX()) {
         def osArgs = [
             '--app-image', "${buildDir}/${packageDir}/${project.name}.app",
         ]
 
         arg.addAll(osArgs)
-        commandLine arg
-
+//        commandLine arg
     } else if (OperatingSystem.current().isWindows()) {
         def osArgs = [
             '--app-image', "${buildDir}/${packageDir}/${project.name}",
@@ -116,15 +114,16 @@ task packit(type:Exec, dependsOn:'packitImage') {
             '--type', 'msi'
         ]
 
-//        arg.addAll(osArgs)
+        arg.addAll(osArgs)
 //        commandLine osAdaptiveCommand(arg)
-        
-        def help = ['jpackage', '-h']
-        commandLine osAdaptiveCommand(help)
-
     }  else {
         println "*** Unknown ***"
     }
+    
+    
+    def help = ['jpackage', '-h']
+    commandLine osAdaptiveCommand(arg)
+    commandLine osAdaptiveCommand(help)
 }
 
 task packitImage(type:Exec, dependsOn: ['clean', 'installDist']) {
